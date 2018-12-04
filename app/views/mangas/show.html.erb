@@ -18,6 +18,7 @@
                 <td><strong>Score:</strong></td>
                 <td><%= @mal_info.score %> (<%= @mal_info.raw['scored_by'] %> voters) </td>
               </tr>
+              <% if @mal_info.type == "Manga" %>
               <tr>
                 <td><strong>Author(s):</strong></td>
                 <td>
@@ -26,6 +27,8 @@
                   <% end %>
                 </td>
               </tr>
+              <% end %>
+
               <tr>
                 <td><strong>Ranking:</strong></td>
                 <td><%= @mal_info.raw['rank'] %></td>
@@ -35,7 +38,8 @@
         </div>
       </div>
       <div class="col-md-8">
-        <h1><%= @mal_info.title %> (<%= @mal_info.type %>)</h1>
+        <h1><%= @mal_info.title %></h1>
+        <h2>Type: <%= @mal_info.type %></h2>
         <h4>genre(s): 
           <% @mal_info.genre.each do |genero| %>
             <%= genero['name'] %> 
@@ -81,4 +85,4 @@
 <br>
 <br>
 <br>
-<% binding.pry %>
+binding.pry

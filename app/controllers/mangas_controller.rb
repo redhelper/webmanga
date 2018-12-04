@@ -9,15 +9,17 @@ class MangasController < ApplicationController
 			@results = @qry.search(params[:search]).result
 			@results = @results.first(8)
 		end
+		binding.pry
 	end
 
 	def show
 		@manga = Manga.find(params[:id])
-		if @manga.m_type = 'Manga'
+		if @manga.m_type == 'Manga'
 			@mal_info = Jikan::manga @manga.mal_id
 		else
 			@mal_info = Jikan::anime @manga.mal_id
 		end
+		
 		@related = @mal_info.raw['related']
 	end
 
@@ -30,11 +32,24 @@ class MangasController < ApplicationController
 	end
 
 	def create
-		@manga = current_user.mangas.build(manga_params)
+		params.permit(:manga)
+		p = params[:manga]
+		if p['m_type'] == 'Manga'
+			@mal_info = Jikan::manga p['mal_id']
+		elsif p['m_type'] == 'Anime'
+			@mal_info = Jikan::anime p['mal_id']
+		end
+		mp = manga_params
+		mp[:user_id] = current_user.id
+		mp[:title] = @mal_info.title
+		mp[:img] = @mal_info.image
+		mp[:m_type] = @mal_info.type
+
+		@manga = current_user.mangas.build(mp)
 
 		respond_to do |format|
 			if @manga.save
-			  format.html { redirect_to @manga, notice: 'Movie was successfully created.' }
+			  format.html { redirect_to @manga, notice: 'Successfully created.' }
 			  format.json { render :show, status: :created, location: @manga }
 			else
 			  format.html { render :new }
@@ -45,10 +60,11 @@ class MangasController < ApplicationController
 
 	def update
 		@manga = Manga.find(params[:id])
-		if @manga.m_type = 'Manga'
-			@mal_info = Jikan::manga @manga.mal_id
-		else
-			@mal_info = Jikan::anime @manga.mal_id
+		p = params[:manga].permit("mal_id", "m_type")
+		if p['m_type'] == 'Manga'
+			@mal_info = Jikan::manga p['mal_id']
+		elsif p['m_type'] == 'Anime'
+			@mal_info = Jikan::anime p['mal_id']
 		end
 		mp = manga_params
 		mp[:user_id] = current_user.id
