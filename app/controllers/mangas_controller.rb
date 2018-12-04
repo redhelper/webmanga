@@ -4,9 +4,9 @@ class MangasController < ApplicationController
 
 	def index
 		@mangas = Manga.all	
-		if params[:text_query].present?
+		if params[:search].present?
 			@qry = Jikan::Query.new
-			@results = @qry.search(params[:text_query]).result
+			@results = @qry.search(params[:search]).result
 		end
 	end
 

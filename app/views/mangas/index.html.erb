@@ -1,73 +1,49 @@
-<style>
-img.preview {
-    height: 350px;
-    width: auto;
-    max-width: 250px;
-}
-img.tiny {
-    height: 250px;
-    width: auto;
-    max-width: 180px;
-}
-</style>
-
 <h1>Manga list</h1>
 
-<%= form_tag({controller: "mangas", action: "index"}, method: "get", id: "search-filters") do %>
-  <div class="small-9 columns">
-    <%= text_field_tag :text_query, nil, :placeholder => "Search here..."%>
-    <button class="btn" id="search_query">Search</button>
+<%= link_to 'Nuevo Manga', new_manga_path %>
+
+<br>
+<br>
+<br>
+
+<% if !user_signed_in? %>
+  <div class="jumbotron">
+    <h1>Your Favorite Mangas Reviewed</h1>
+    <p>Hashtag hoodie mumblecore selfies. Authentic keffiyeh leggings Kickstarter, narwhal jean shorts XOXO Vice Austin cardigan. Organic drinking vinegar freegan pickled.</p>
+    <p><%= link_to "Sign Up To Review", new_user_registration_path, class: "btn btn-primary btn-lg" %></p>
   </div>
 <% end %>
 
-<%= link_to 'Nuevo Manga', new_manga_path %>
-<br>
-<br>
-<br>
-
-<div style="width: 100%">
-	<% @mangas.each do |manga| %>
-		<table style="float: left">
-			<tr>
-				<th>
-					<%= manga.title %>
-				</th>
-			</tr>
-			<tr>
-				<td>
-					<img class="preview" src=<%= manga.img %> alt="Pic not availible :c">
-					<br>
-					<%= link_to 'Detalles', manga_path(manga) %>
-					<%= link_to 'Editar', edit_manga_path(manga) %>
-					<br>
-					<br>
-				</td>
-			</tr>
-		</table>
-	<% end %>
-	<table style="width: 100%">
-	</table>
+<div class="row">
+  <% @mangas.each do |manga| %>
+    <div class="col-sm-6 col-md-3">
+	  <div class="thumbnail" style="min-height: 400px;">
+		<img class="img" style="max-height: 310px;" src=<%= manga.img %> alt="Pic not availible :c">
+		<h3><%= manga.title %></h3>
+		<p>
+			<%= link_to 'Detalles', manga_path(manga) %>
+			<%= link_to 'Editar', edit_manga_path(manga) %>
+		</p>
+       </div>
+    </div>
+  <% end %>
 </div>
 
+<br>
 
-<div style="width: 100%">
-	<% if !@results.nil? %>
-		<h1>Anime Web Search</h1>
-
-		<p>Results:</p>
+<% if !@results.nil? %>
+<h1>Anime Web Search</h1>
+	<div class="row">
 		<% @results.each do |result| %>
-			<table style="float: left; max-width: 200px;">
-				<tr style="height: 60px;">
-					<th>
-						<%= result.title %>
-					</th>
-				</tr>
-				<tr>
-					<td>
-						<img class="tiny" src=<%= result.image %> alt="Pic not availible :c">
-					</td>
-				</tr>
-			</table>
+			<div class="col-sm-6 col-md-3">
+			<div class="thumbnail" style="min-height: 400px;">
+			<img class="img" style="max-height: 310px;" src=<%= result.image %> alt="Pic not availible :c">
+			<h3><%= result.title %></h3>
+			<p>
+				<%= link_to 'Detalles', manga_path(result) %>
+			</p>
+				</div>
+			</div>
 		<% end %>
-	<% end %>
-</div>
+	</div>
+<% end %>
