@@ -43,27 +43,29 @@
         </h4>
         <h4>Status: <%= @mal_info.status %></h4>
         <p><%= @mal_info.synopsis %></p>
-        <%= link_to 'Ver Más', @mal_info.link %> 
-        <%= link_to 'Editar', edit_manga_path(@manga) %> 
+        <%= link_to 'Volver', mangas_path, class: "btn btn-default" %>
+        <%= link_to 'Ver Más', @mal_info.link, class: "btn btn-info" %> 
+        <br><br>
+        <%= link_to 'Editar', edit_manga_path(@manga), class: "btn btn-warning" %> 
         <%= link_to 'Borrar', manga_path(@manga),
               method: :delete,
-              data: { confirm: 'Nigga u sure?' } %> 
-        <%= link_to 'Volver', mangas_path %>
+              data: { confirm: 'Nigga u sure?' }, class: "btn btn-danger" %> 
+        
 
       </div>
     </div>
   </div>
 </div>
 
-<h1>Related Series</h1>
-
-<div class="row">
-  <% @related.keys.each do |k| %>
-    <h2><%= k %></h2>
-    <h4><%= link_to @related[k][0]["title"], @related[k][0]["url"] %></h4>
-  <% end %>
-</div>
-
+<% if @related.count != 0 %>
+  <h1>Related Series</h1>
+  <div class="row">
+    <% @related.keys.each do |k| %>
+      <h2><%= k %></h2>
+      <h4><%= link_to @related[k][0]["title"], @related[k][0]["url"] %> (<%= @related[k][0]["type"] %>)</h4>
+    <% end %>
+  </div>
+<% end %>
 <br>
 <br>
 <br>
@@ -79,3 +81,4 @@
 <br>
 <br>
 <br>
+<% binding.pry %>
