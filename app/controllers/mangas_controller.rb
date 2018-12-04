@@ -1,4 +1,7 @@
 class MangasController < ApplicationController
+  	before_action :authenticate_user!, except: [:index, :show]
+
+
 	def index
 		@mangas = Manga.all	
 		if params[:text_query].present?
@@ -18,7 +21,7 @@ class MangasController < ApplicationController
 	end
 
 	def new
-		@manga = Manga.new
+		@manga = current_user.mangas.build
 	end
 
 	def edit
@@ -26,12 +29,17 @@ class MangasController < ApplicationController
 	end
 
 	def create
-		@manga = Manga.new(manga_params)
-		if @manga.save
-			redirect_to @manga
-		else
-			render 'new'
-		end
+		@manga = current_user.mangas.build(manga_params)
+
+		respond_to do |format|
+			if @manga.save
+			  format.html { redirect_to @manga, notice: 'Movie was successfully created.' }
+			  format.json { render :show, status: :created, location: @manga }
+			else
+			  format.html { render :new }
+			  format.json { render json: @manga.errors, status: :unprocessable_entity }
+			end
+	  	end
 	end
 
 	def update
