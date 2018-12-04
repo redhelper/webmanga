@@ -13,8 +13,11 @@ class MangasController < ApplicationController
 
 	def show
 		@manga = Manga.find(params[:id])
-		@qry = Jikan::Query.new
-		@mal_info = @qry.manga_id @manga.mal_id
+		if @manga.m_type = 'Manga'
+			@mal_info = Jikan::manga @manga.mal_id
+		else
+			@mal_info = Jikan::anime @manga.mal_id
+		end
 		@related = @mal_info.raw['related']
 	end
 
@@ -42,7 +45,18 @@ class MangasController < ApplicationController
 
 	def update
 		@manga = Manga.find(params[:id])
-		if @manga.update(manga_params)
+		if @manga.m_type = 'Manga'
+			@mal_info = Jikan::manga @manga.mal_id
+		else
+			@mal_info = Jikan::anime @manga.mal_id
+		end
+		mp = manga_params
+		mp[:user_id] = current_user.id
+		mp[:title] = @mal_info.title
+		mp[:img] = @mal_info.image
+		mp[:m_type] = @mal_info.type
+		
+		if @manga.update(mp)
 			redirect_to @manga
 		else
 			render 'edit'
@@ -57,6 +71,6 @@ class MangasController < ApplicationController
 
 	private
 	def manga_params
-		params.require(:manga).permit(:title, :mal_id, :img)
+		params.require(:manga).permit(:title, :mal_id, :img, :m_type)
 	end
 end

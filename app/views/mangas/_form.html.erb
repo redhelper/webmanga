@@ -1,5 +1,4 @@
-<%= form_with model: @manga, local: true do |form| %>
- 
+<%= form_with model: @manga, class: "form-horizontal", local: true do |form| %>
   <% if @manga.errors.any? %>
     <div id="error_explanation">
       <h2>
@@ -13,18 +12,14 @@
       </ul>
     </div>
   <% end %>
- 
-  <p>
-    <%= form.label :title %> <%= form.text_field :title %>
-  </p>
-  <p>
-    <%= form.label :img %> <%= form.text_field :img %>
-  </p>
-  <p>
-    <%= form.label :mal_id %> <%= form.text_field :mal_id %>
-  </p>
-  <p>
-    <%= form.submit %>
-  </p> 
- 
+
+  <div class="form-group">
+    <%= form.label :mal_id, "Ingrese ID", class: "col-sm-2 control-label" %>
+    <div class="col-sm-4">
+      <%= form.text_field :mal_id, class: "form-control" %>
+    </div>
+  </div>
+
+  <%= link_to 'Volver', mangas_path, class: "btn btn-default" %>
+  <%= form.submit "Upload", class: "btn btn-primary" %>
 <% end %>
