@@ -1,0 +1,73 @@
+<style>
+img.preview {
+    height: 350px;
+    width: auto;
+    max-width: 250px;
+}
+img.tiny {
+    height: 250px;
+    width: auto;
+    max-width: 180px;
+}
+</style>
+
+<h1>Manga list</h1>
+
+<%= form_tag({controller: "mangas", action: "index"}, method: "get", id: "search-filters") do %>
+  <div class="small-9 columns">
+    <%= text_field_tag :text_query, nil, :placeholder => "Search here..."%>
+    <button class="btn" id="search_query">Search</button>
+  </div>
+<% end %>
+
+<%= link_to 'Nuevo Manga', new_manga_path %>
+<br>
+<br>
+<br>
+
+<div style="width: 100%">
+	<% @mangas.each do |manga| %>
+		<table style="float: left">
+			<tr>
+				<th>
+					<%= manga.title %>
+				</th>
+			</tr>
+			<tr>
+				<td>
+					<img class="preview" src=<%= manga.img %> alt="Pic not availible :c">
+					<br>
+					<%= link_to 'Detalles', manga_path(manga) %>
+					<%= link_to 'Editar', edit_manga_path(manga) %>
+					<br>
+					<br>
+				</td>
+			</tr>
+		</table>
+	<% end %>
+	<table style="width: 100%">
+	</table>
+</div>
+
+
+<div style="width: 100%">
+	<% if !@results.nil? %>
+		<h1>Anime Web Search</h1>
+
+		<p>Results:</p>
+		<% @results.each do |result| %>
+			<table style="float: left; max-width: 200px;">
+				<tr style="height: 60px;">
+					<th>
+						<%= result.title %>
+					</th>
+				</tr>
+				<tr>
+					<td>
+						<img class="tiny" src=<%= result.image %> alt="Pic not availible :c">
+					</td>
+				</tr>
+			</table>
+		<% end %>
+	<% end %>
+</div>

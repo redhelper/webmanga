@@ -1,0 +1,47 @@
+<style>
+img.authpic {
+    height: auto;
+    width: auto;
+    max-height: 150px;
+    max-width: 150px;
+}
+</style>
+
+<h1><%= @mal_info.title %> (<%= @mal_info.type %>)</h1>
+<h2><%= @mal_info.title_en %> - <%= @mal_info.raw['title_japanese'] %></h2>
+
+<h3>score: [<%= @mal_info.score %>] out of <%= @mal_info.raw['scored_by'] %> voters</h3>
+<h3>ranking: <%= @mal_info.raw['rank'] %></h3>
+<h3>status: <%= @mal_info.status %></h3>
+<h3>Authors:</h3>
+<% @mal_info.author.each do |author| %>
+  <p><%= author['title'] %></p>
+<% end %>
+
+
+<br><br>
+
+ <table style="width:80%">
+  <tr>
+    <td>
+    	<img src=<%= @mal_info.image %> alt="Pic not availible :c">
+    </td>
+    <td>
+      <%= @mal_info.synopsis %>
+      <br>
+      <h4>genre: 
+      <% @mal_info.genre.each do |genero| %>
+        <%= genero['name'] %> 
+      <% end %></h4><br>
+
+      <%= link_to 'Ver Más', @mal_info.link %> 
+      <%= link_to 'Editar', edit_manga_path(@manga) %> 
+      <%= link_to 'Borrar', manga_path(@manga),
+            method: :delete,
+            data: { confirm: 'Nigga u sure?' } %> 
+      <%= link_to 'Volver', mangas_path %>
+    </td>
+  </tr>
+</table> 
+
+<br>

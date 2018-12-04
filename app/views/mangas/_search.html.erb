@@ -1,0 +1,32 @@
+<style>
+img.preview {
+    height: 350px;
+    width: auto;
+    max-width: 250px;
+}
+img.tiny {
+    height: 250px;
+    width: auto;
+    max-width: 180px;
+}
+</style>
+
+<table style="width: 100%">
+</table>
+
+<h3>Anime Web Search:</h3>
+
+<% @resume.each do |result| %>
+	<table style="float: left; max-width: 200px;">
+	    <tr style="height: 60px;">
+	 		<th>
+	 			<%= result.title %>
+	 		</th>
+	 	</tr>
+		<tr>
+			<td>
+				<img class="tiny" src=<%= result.image %> alt="Pic not availible :c">
+			</td>
+		</tr>
+	</table>
+<% end %>
