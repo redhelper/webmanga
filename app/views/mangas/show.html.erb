@@ -34,13 +34,14 @@
           </table>
         </div>
       </div>
-      <div class="col-md-7 col-md-offset-1">
+      <div class="col-md-8">
         <h1><%= @mal_info.title %> (<%= @mal_info.type %>)</h1>
         <h4>genre(s): 
           <% @mal_info.genre.each do |genero| %>
             <%= genero['name'] %> 
           <% end %>
         </h4>
+        <h4>Status: <%= @mal_info.status %></h4>
         <p><%= @mal_info.synopsis %></p>
         <%= link_to 'Ver Más', @mal_info.link %> 
         <%= link_to 'Editar', edit_manga_path(@manga) %> 
@@ -53,3 +54,28 @@
     </div>
   </div>
 </div>
+
+<h1>Related Series</h1>
+
+<div class="row">
+  <% @related.keys.each do |k| %>
+    <h2><%= k %></h2>
+    <h4><%= link_to @related[k][0]["title"], @related[k][0]["url"] %></h4>
+  <% end %>
+</div>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>

@@ -7,6 +7,7 @@ class MangasController < ApplicationController
 		if params[:search].present?
 			@qry = Jikan::Query.new
 			@results = @qry.search(params[:search]).result
+			@results = @results.first(8)
 		end
 	end
 
@@ -14,10 +15,7 @@ class MangasController < ApplicationController
 		@manga = Manga.find(params[:id])
 		@qry = Jikan::Query.new
 		@mal_info = @qry.manga_id @manga.mal_id
-
-		@qry2 = Jikan::Query.new
-		@search = @qry2.search(@mal_info.title)
-		@resume = @search.result.first(5)
+		@related = @mal_info.raw['related']
 	end
 
 	def new

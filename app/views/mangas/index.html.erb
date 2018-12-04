@@ -1,10 +1,21 @@
-<h1>Manga list</h1>
+<div class="row">
+	<div class="col-sm-12 col-md-6">
+			<h1>Your Mangas</h1>
 
-<%= link_to 'Nuevo Manga', new_manga_path %>
+	</div>
 
-<br>
-<br>
-<br>
+	<div class="col-sm-12 col-md-6">
+			<%= form_tag({controller: "mangas", action: "index"}, method: "get", class: "navbar-form navbar-right", role: "search") do %>
+				<p>
+					<%= text_field_tag :search, params[:search], class: "form-control", :placeholder => "Search here" %>
+					<%= submit_tag "Search", name: nil, class: "btn btn-default" %>
+				</p>
+			<% end %>
+	</div>
+</div>
+
+
+
 
 <% if !user_signed_in? %>
   <div class="jumbotron">
@@ -36,12 +47,11 @@
 	<div class="row">
 		<% @results.each do |result| %>
 			<div class="col-sm-6 col-md-3">
-			<div class="thumbnail" style="min-height: 400px;">
-			<img class="img" style="max-height: 310px;" src=<%= result.image %> alt="Pic not availible :c">
-			<h3><%= result.title %></h3>
-			<p>
-				<%= link_to 'Detalles', manga_path(result) %>
-			</p>
+				<div class="thumbnail" style="min-height: 400px;">
+					<img class="img" style="max-height: 310px;" src=<%= result.image %> alt="Pic not availible :c">
+					<h4><%= result.title %></h4>
+					<h5>Type: <%= result.type %></h5>
+					<p><%= link_to 'Details', manga_path(result) %></p>
 				</div>
 			</div>
 		<% end %>
