@@ -16,26 +16,36 @@
 
 <% if !user_signed_in? %>
   <div class="jumbotron">
-    <h1>Your Favorite Mangas Reviewed</h1>
-    <p>Hashtag hoodie mumblecore selfies. Authentic keffiyeh leggings Kickstarter, narwhal jean shorts XOXO Vice Austin cardigan. Organic drinking vinegar freegan pickled.</p>
+    <h1>Your Favorite Mangas Reviewed!</h1>
+    <p>Sign up and start reviewing your stuff. New updates everyweek! XOXO</p>
     <p><%= link_to "Sign Up To Review", new_user_registration_path, class: "btn btn-primary btn-lg" %></p>
   </div>
 <% end %>
 
-<div class="row">
-  <% @mangas.each do |manga| %>
-    <div class="col-sm-6 col-md-3">
-	  <div class="thumbnail" style="min-height: 400px;">
-		<img class="img" style="max-height: 310px;" src=<%= manga.img %> alt="Pic not availible :c">
-		<h3><%= manga.title %></h3>
-		<p>
-			<%= link_to 'Detalles', manga_path(manga) %>
-			<%= link_to 'Editar', edit_manga_path(manga) %>
-		</p>
-       </div>
-    </div>
-  <% end %>
-</div>
+<% if @mangas == nil %>
+  <div class="jumbotron">
+    <h2>You don't have any series!</h2>
+		<p>To add series to your collection click on the "New Manga" button below:</p>
+    <p><%= link_to "New Manga", new_manga_path, class: "active", class: "btn btn-primary btn-lg" %></p>
+	</div>
+
+<% else %>
+
+	<div class="row">
+		<% @mangas.each do |manga| %>
+			<div class="col-sm-6 col-md-3">
+			<div class="thumbnail" style="min-height: 400px;">
+			<img class="img" style="max-height: 310px;" src=<%= manga.img %> alt="Pic not availible :c">
+			<h3><%= manga.title %></h3>
+			<p>
+				<%= link_to 'Detalles', manga_path(manga) %>
+				<%= link_to 'Editar', edit_manga_path(manga) %>
+			</p>
+				</div>
+			</div>
+		<% end %>
+	</div>
+<% end %>
 
 <br>
 

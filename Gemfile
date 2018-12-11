@@ -63,3 +63,4 @@ end
 
 gem 'pry'
 gem 'jikan.rb'
+gem 'amistad'

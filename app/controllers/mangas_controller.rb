@@ -3,7 +3,11 @@ class MangasController < ApplicationController
 
 
 	def index
-		@mangas = Manga.all	
+		if user_signed_in?
+			@mangas = Manga.find_by user_id: current_user.id
+		else
+			@mangas = Manga.all
+		end
 		if params[:search].present?
 			@qry = Jikan::Query.new
 			@results = @qry.search(params[:search]).result
