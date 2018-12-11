@@ -9,7 +9,6 @@ class MangasController < ApplicationController
 			@results = @qry.search(params[:search]).result
 			@results = @results.first(8)
 		end
-		binding.pry
 	end
 
 	def show
