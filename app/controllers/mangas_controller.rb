@@ -4,7 +4,7 @@ class MangasController < ApplicationController
 
 	def index
 		if user_signed_in?
-			@mangas = Manga.find_by user_id: current_user.id
+			@mangas = Manga.where user_id: current_user.id
 		else
 			@mangas = Manga.all
 		end
@@ -13,6 +13,10 @@ class MangasController < ApplicationController
 			@results = @qry.search(params[:search]).result
 			@results = @results.first(8)
 		end
+	end
+
+	def social
+		
 	end
 
 	def show
@@ -49,7 +53,6 @@ class MangasController < ApplicationController
 		mp[:m_type] = @mal_info.type
 
 		@manga = current_user.mangas.build(mp)
-
 		respond_to do |format|
 			if @manga.save
 			  format.html { redirect_to @manga, notice: 'Successfully created.' }

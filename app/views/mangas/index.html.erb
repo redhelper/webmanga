@@ -22,25 +22,38 @@
   </div>
 <% end %>
 
-<% if @mangas == nil %>
+
+
+<% if @mangas.class == NilClass %>
   <div class="jumbotron">
-    <h2>You don't have any series!</h2>
-		<p>To add series to your collection click on the "New Manga" button below:</p>
-    <p><%= link_to "New Manga", new_manga_path, class: "active", class: "btn btn-primary btn-lg" %></p>
+    <h2>You dont have any series!</h2>
+		<p>To add series to your collection click on the "New Serie" button below:</p>
+    <p><%= link_to "New Serie", new_manga_path, class: "active", class: "btn btn-primary btn-lg" %></p>
+	</div>
+
+<% elsif @mangas.class == Manga %>
+	<div class="row">
+			<div class="col-sm-6 col-md-3">
+			<div class="thumbnail" style="min-height: 400px;">
+			<img class="img" style="max-height: 310px;" src=<%= @mangas.img %> alt="Pic not availible :c">
+			<h3><%= @mangas.title %></h3>
+			<p>
+				<%= link_to 'Detalles', manga_path(@mangas) %>
+			</p>
+				</div>
+			</div>
 	</div>
 
 <% else %>
-
 	<div class="row">
 		<% @mangas.each do |manga| %>
 			<div class="col-sm-6 col-md-3">
-			<div class="thumbnail" style="min-height: 400px;">
-			<img class="img" style="max-height: 310px;" src=<%= manga.img %> alt="Pic not availible :c">
-			<h3><%= manga.title %></h3>
-			<p>
-				<%= link_to 'Detalles', manga_path(manga) %>
-				<%= link_to 'Editar', edit_manga_path(manga) %>
-			</p>
+				<div class="thumbnail" style="min-height: 400px;">
+					<img class="img" style="max-height: 310px;" src=<%= manga.img %> alt="Pic not availible :c">
+					<h3><%= manga.title %></h3>
+					<p>
+						<%= link_to 'Detalles', manga_path(manga) %>
+					</p>
 				</div>
 			</div>
 		<% end %>
@@ -49,8 +62,9 @@
 
 <br>
 
+
 <% if !@results.nil? %>
-<h1>Anime Web Search</h1>
+	<h1>Anime Web Search</h1>
 	<div class="row">
 		<% @results.each do |result| %>
 			<div class="col-sm-6 col-md-3">
@@ -64,3 +78,5 @@
 		<% end %>
 	</div>
 <% end %>
+
+(binding pry)
