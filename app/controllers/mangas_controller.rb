@@ -37,8 +37,9 @@ class MangasController < ApplicationController
 		else
 			@mal_info = Jikan::anime @manga.mal_id
 		end
-		
 		@related = @mal_info.raw['related']
+		@reviews = Review.where(manga_id: @manga.id).order("created_at DESC")
+		#binding.pry
 	end
 
 	def new

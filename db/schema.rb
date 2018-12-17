@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_17_162504) do
+ActiveRecord::Schema.define(version: 2018_12_17_171241) do
 
   create_table "friendships", force: :cascade do |t|
     t.integer "friendable_id"
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 2018_12_17_162504) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
+    t.integer "manga_id"
   end
 
   create_table "users", force: :cascade do |t|

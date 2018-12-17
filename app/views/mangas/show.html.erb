@@ -1,3 +1,4 @@
+<script src="app/assets/javascripts/jquery.raty.js"></script>
 <div class="panel panel-default">
   <div class="panel-body">
     <div class="row">
@@ -53,11 +54,26 @@
         <p><%= @mal_info.synopsis %></p>
         <%= link_to 'Volver', mangas_path, class: "btn btn-default" %>
         <%= link_to 'Ver Más', @mal_info.link, class: "btn btn-info" %> 
-        <br><br>
         <%= link_to 'Editar', edit_manga_path(@manga), class: "btn btn-warning" %> 
         <%= link_to 'Borrar', manga_path(@manga),
               method: :delete,
               data: { confirm: 'Nigga u sure?' }, class: "btn btn-danger" %> 
+      
+      
+        <% if @reviews.blank? %>
+          <h3>No reviews just yet, would you like to add the first!</h3>
+          <%= link_to "Write a Review", new_manga_review_path(@manga), class: "btn btn-danger" %>
+        <% else %>
+          <% @reviews.each do |review| %>
+            <div class="reviews">
+              <div class="star-rating" data-score=<%= review.rating %> >
+              </div>
+              <p><%= review.comment %></p>
+            </div>
+          <% end %>
+        <% end %>
+
+
       </div>
     </div>
   </div>
@@ -68,7 +84,7 @@
   <div class="row">
     <% @related.keys.each do |k| %>
       <h2><%= k %></h2>
-      <h4><%= link_to @related[k][0]["title"], @related[k][0]["url"] %> (<%= @related[k][0]["type"] %>)</h4>
+      <h4><%= link_to @related[k][0]['title'], @related[k][0]["url"] %> (<%= @related[k][0]["type"] %>)</h4>
     <% end %>
   </div>
 <% end %>
@@ -86,4 +102,13 @@
 <br>
 <br>
 <br>
-<br>
+<br>"
+<script>
+      $('.star-rating').raty({
+        path: '/assets/',
+        readOnly: true,
+        score: function() {
+          return $(this).attr('data-score')
+        }
+      });
+</script>
