@@ -1,1 +1,69 @@
-hola ! :DDD
+<h2> user: <%= current_user.email %></h2>
+
+<div class="container">
+    <div class="list-group">
+        <li class="list-group-item active">users!</li>
+        <% @users.each do |u| %>
+            <li class="list-group-item">
+                <%= form_tag({controller: "mangas", action: "friend_invite"}) do %>
+                    <%= u.email %>
+                    <%= hidden_field_tag :friend_id, u.id %>
+                    <%= submit_tag "Add Friend", class:"btn btn-xs btn-primary pull-right" %>
+                <% end %>
+            </li>
+        <% end %>
+    </div>
+</div>
+
+<div class="container">
+    <div class="list-group">
+        <li class="list-group-item active">Your Friends!</li>
+        <% if @friends != [] %>
+            <% @friends.each do |f| %>
+                <li class="list-group-item">
+                    <%= f.email %>
+                </li>
+            <% end %>
+        <% else %>
+            <li class="list-group-item">
+                No friends :(
+            </li>
+        <% end %>
+    </div>
+</div>
+
+<div class="container">
+    <div class="list-group">
+        <li class="list-group-item active">Invited</li>
+        <% if current_user.pending_invited != [] %>
+            <% current_user.pending_invited.each do |f| %>
+                <li class="list-group-item">
+                    <%= f.email %>
+                </li>
+            <% end %>
+        <% else %>
+            <li class="list-group-item">
+                None :(
+            </li>
+        <% end %>
+    </div>
+</div>
+
+<div class="container">
+    <div class="list-group">
+        <li class="list-group-item active">Invited by</li>
+        <% if current_user.pending_invited != [] %>
+            <% current_user.pending_invited.each do |f| %>
+                <li class="list-group-item">
+                    <%= f.email %>
+                </li>
+            <% end %>
+        <% else %>
+            <li class="list-group-item">
+                None :(
+            </li>
+        <% end %>
+    </div>
+</div>
+
+binding pry

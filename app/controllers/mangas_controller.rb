@@ -15,9 +15,20 @@ class MangasController < ApplicationController
 		end
 	end
 
-	def social
-		
+	def friends
+		@users = User.where("id != "+current_user.id.to_s )
+		@friends = current_user.friends
+		@rafa = User.where("id = 5").first
+		# binding.pry
 	end
+
+	def friend_invite
+		@user = User.where("id = "+params[:friend_id]).first
+		@me = current_user
+		@me.invite @user
+		redirect_to mangas_friends_url
+	end
+
 
 	def show
 		@manga = Manga.find(params[:id])

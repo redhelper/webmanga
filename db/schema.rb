@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_11_161752) do
+ActiveRecord::Schema.define(version: 2018_12_17_162504) do
 
   create_table "friendships", force: :cascade do |t|
     t.integer "friendable_id"
@@ -28,6 +28,14 @@ ActiveRecord::Schema.define(version: 2018_12_11_161752) do
     t.string "img"
     t.integer "user_id"
     t.string "m_type"
+  end
+
+  create_table "reviews", force: :cascade do |t|
+    t.integer "rating"
+    t.text "comment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id"
   end
 
   create_table "users", force: :cascade do |t|
