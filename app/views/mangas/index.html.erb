@@ -68,7 +68,7 @@
 	<div class="row">
 		<% @results.each do |result| %>
 			<div class="col-sm-6 col-md-3">
-			<% if @results[0].class == Array || Hash %>
+			<% if @results[0].class == Array || @results[0].class == Hash %>
 				<div class="thumbnail" style="min-height: 400px;">
 					<% if result['image_url'].include? "questionmark_23.gif" %>
 					<img class="img" style="max-height: 310px;" src="https://ih0.redbubble.net/image.467181592.3447/flat,1000x1000,075,f.u2.jpg">

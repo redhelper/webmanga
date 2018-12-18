@@ -7,6 +7,7 @@ class MangasController < ApplicationController
 		else
 			@mangas = Manga.all
 		end
+
 		if params[:search].present?
 			@type = /type:(\w+)/.match(params[:search])
 			@qry = Jikan::Query.new
