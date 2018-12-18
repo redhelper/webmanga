@@ -64,3 +64,4 @@ end
 gem 'pry'
 gem 'jikan.rb'
 gem 'amistad'
+gem 'rest-client', '~> 2.0', '>= 2.0.2'

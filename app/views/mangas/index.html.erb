@@ -64,19 +64,30 @@
 
 
 <% if !@results.nil? %>
-	<h1>Anime Web Search</h1>
+	<h1><%= @type[1] %> web search:</h1>
 	<div class="row">
 		<% @results.each do |result| %>
 			<div class="col-sm-6 col-md-3">
+			<% if @results[0].class == Array || Hash %>
 				<div class="thumbnail" style="min-height: 400px;">
-					<img class="img" style="max-height: 310px;" src=<%= result.image %> alt="Pic not availible :c">
-					<h4><%= result.title %></h4>
-					<h5>Type: <%= result.type %></h5>
-					<p><%= link_to 'Details', manga_path(result) %></p>
+					<% if result['image_url'].include? "questionmark_23.gif" %>
+					<img class="img" style="max-height: 310px;" src="https://ih0.redbubble.net/image.467181592.3447/flat,1000x1000,075,f.u2.jpg">
+					<p>Pic not availible >:t</p>
+					<% else %>
+					<img class="img" style="max-height: 310px;" src=<%= result['image_url'] %> alt="Pic not availible :c">
+					<% end %>
+					<h4><%= result['name'] %></h4>
 				</div>
+			<% else %>
+			<div class="thumbnail" style="min-height: 400px;">
+				<img class="img" style="max-height: 310px;" src=<%= result.image %> alt="Pic not availible :c">
+				<h4><%= result.title %></h4>
+				<h5>Type: <%= result.type %></h5>
+				<p><%= link_to 'Details', manga_path(result) %></p>
+			</div>
+
+			<% end %>
 			</div>
 		<% end %>
 	</div>
 <% end %>
-
-(binding pry)

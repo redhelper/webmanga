@@ -35,7 +35,7 @@
 <div class="container">
     <div class="list-group">
         <li class="list-group-item active">Invited</li>
-        <% if current_user.pending_invited != [] %>
+        <% if @pending_invited != [] %>
             <% current_user.pending_invited.each do |f| %>
                 <li class="list-group-item">
                     <%= f.email %>
@@ -52,7 +52,7 @@
 <div class="container">
     <div class="list-group">
         <li class="list-group-item active">Invited by</li>
-        <% if current_user.pending_invited != [] %>
+        <% if @pending_invited_by != [] %>
             <% current_user.pending_invited.each do |f| %>
                 <li class="list-group-item">
                     <%= f.email %>
@@ -65,5 +65,3 @@
         <% end %>
     </div>
 </div>
-
-binding pry
