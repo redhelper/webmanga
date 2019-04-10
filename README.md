@@ -1,6 +1,6 @@
 # README
 
-This is a small website built for a project made in university, built in ruby on rails.
+This is a small website built in ruby on rails for an university project.
 Since it was only a test it's not refined, since the main focus for the software was to learn how gems worked, and to get an understanding of how RoR works.
 
 The things the website does is:
